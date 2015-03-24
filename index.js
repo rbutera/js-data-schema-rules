@@ -13,7 +13,29 @@ var customRules = function(schemator, lodash){
     } else if (!_){
         throw new Error('js-data-rules missing lodash');
     } else {
-        var unwrapped = function(input){
+
+        // from http://stackoverflow.com/questions/46155/validate-email-address-in-javascript
+        var checkEmail = function (emailAddress) {
+          var sQtext = '[^\\x0d\\x22\\x5c\\x80-\\xff]';
+          var sDtext = '[^\\x0d\\x5b-\\x5d\\x80-\\xff]';
+          var sAtom = '[^\\x00-\\x20\\x22\\x28\\x29\\x2c\\x2e\\x3a-\\x3c\\x3e\\x40\\x5b-\\x5d\\x7f-\\xff]+';
+          var sQuotedPair = '\\x5c[\\x00-\\x7f]';
+          var sDomainLiteral = '\\x5b(' + sDtext + '|' + sQuotedPair + ')*\\x5d';
+          var sQuotedString = '\\x22(' + sQtext + '|' + sQuotedPair + ')*\\x22';
+          var sDomain_ref = sAtom;
+          var sSubDomain = '(' + sDomain_ref + '|' + sDomainLiteral + ')';
+          var sWord = '(' + sAtom + '|' + sQuotedString + ')';
+          var sDomain = sSubDomain + '(\\x2e' + sSubDomain + ')*';
+          var sLocalPart = sWord + '(\\x2e' + sWord + ')*';
+          var sAddrSpec = sLocalPart + '\\x40' + sDomain; // complete RFC822 email address spec
+          var sValidEmail = '^' + sAddrSpec + '$'; // as whole string
+
+          var reValidEmail = new RegExp(sValidEmail);
+
+          return reValidEmail.test(emailAddress);
+        };
+
+        var unwrapped = function(input, value){
             if(input && _.isString(input)){
                 var firstChar = input.charAt(0);
                 var lastChar = input.charAt(input.length - 1);
@@ -29,7 +51,7 @@ var customRules = function(schemator, lodash){
             }
         };
 
-        var lowercase = function(input){
+        var lowercase = function(input, value){
             if(input){
                 if(!_.isString(input) || input !== input.toLowerCase()){
                     return {
@@ -43,11 +65,9 @@ var customRules = function(schemator, lodash){
             }
         };
 
-        var email = function(input){
-            var EMAIL_REGEX = /^((([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~])+(\.([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~])+)*)|((\x22)((((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(([\x01-\x08\x0b\x0c\x0e-\x1f\x7f]|\x21|[\x23-\x5b]|[\x5d-\x7e])|(\\[\x01-\x09\x0b\x0c\x0d-\x7f])))*(((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(\x22)))$/i;
-
+        var email = function(input, value){
             if(input){
-                if(!_.isString(input) || !EMAIL_REGEX.test(input)){
+                if(!_.isString(input) || !checkEmail(input)){
                     return {
                         rule: 'email'
                     };
