@@ -1,0 +1,25 @@
+{
+  "name": "js-data-schema-rules",
+  "main": "index.js",
+  "version": "0.1.1",
+  "homepage": "https://github.com/raibutera/js-data-schema-rules",
+  "authors": [
+    "Rai Butera <rai@rbutera.com>"
+  ],
+  "description": "custom rules for js-data-schema",
+  "moduleType": [
+    "node"
+  ],
+  "keywords": [
+    "js-data",
+    "js-data-schema"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
