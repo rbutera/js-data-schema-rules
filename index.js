@@ -6,6 +6,8 @@
  * @return {[type]}           [description]
  */
 var customRules = function(schemator, lodash){
+    var _ = lodash;
+
     if(!schemator){
         throw new Error('js-data-rules was not passed a schemator instance to inject custom rules into');
     } else if (!_){
