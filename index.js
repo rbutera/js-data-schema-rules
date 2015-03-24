@@ -14,7 +14,7 @@ var customRules = function(schemator, lodash){
         throw new Error('js-data-rules missing lodash');
     } else {
         var unwrapped = function(input){
-            if(input){
+            if(input && _.isString(input)){
                 var firstChar = input.charAt(0);
                 var lastChar = input.charAt(input.length - 1);
                 if(firstChar === ' ' || lastChar === ' '){
@@ -31,7 +31,7 @@ var customRules = function(schemator, lodash){
 
         var lowercase = function(input){
             if(input){
-                if(input !== input.toLowerCase()){
+                if(!_.isString(input) || input !== input.toLowerCase()){
                     return {
                         rule: 'lowercase'
                     };
@@ -47,8 +47,7 @@ var customRules = function(schemator, lodash){
             var EMAIL_REGEX = /^((([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~])+(\.([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~])+)*)|((\x22)((((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(([\x01-\x08\x0b\x0c\x0e-\x1f\x7f]|\x21|[\x23-\x5b]|[\x5d-\x7e])|(\\[\x01-\x09\x0b\x0c\x0d-\x7f])))*(((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(\x22)))$/i;
 
             if(input){
-
-                if(!EMAIL_REGEX.test(input)){
+                if(!_.isString(input) || !EMAIL_REGEX.test(input)){
                     return {
                         rule: 'email'
                     };
@@ -64,6 +63,10 @@ var customRules = function(schemator, lodash){
         var enumRule = function(input, possible){
             if(!input || !possible){
                 return null;
+            } else if (possible && !_.isArray(possible)){
+                return {
+                    rule: 'enum'
+                };
             } else {
                 if(_.indexOf(possible, input) === -1){
                     return {
