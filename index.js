@@ -69,7 +69,9 @@ var customRules = function(schemator, lodash){
             if(input){
                 if(!_.isString(input) || !checkEmail(input)){
                     return {
-                        rule: 'email'
+                        rule: 'email',
+                        actual: input + ' (isString = ' + _.isString(input) + ', regex = ' + checkEmail(input) + ')',
+                        expected: 'an email address'
                     };
                 } else {
                     return null;
