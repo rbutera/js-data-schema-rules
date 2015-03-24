@@ -1,0 +1,22 @@
+{
+  "name": "js-data-schema-rules",
+  "version": "0.1.0",
+  "description": "custom js-data-schema rules",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/raibutera/js-data-schema-rules.git"
+  },
+  "keywords": [
+    "js-data"
+  ],
+  "author": "Rai Butera",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/raibutera/js-data-schema-rules/issues"
+  },
+  "homepage": "https://github.com/raibutera/js-data-schema-rules"
+}
