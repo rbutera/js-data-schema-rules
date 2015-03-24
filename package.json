@@ -1,6 +1,6 @@
 {
   "name": "js-data-schema-rules",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "custom js-data-schema rules",
   "main": "index.js",
   "scripts": {
