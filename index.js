@@ -104,7 +104,7 @@ var customRules = function(schemator, lodash){
 
         schemator.defineRule('unwrapped', unwrapped);
         schemator.defineRule('lowercase', lowercase);
-        schemator.defineRule('email', email);
+        schemator.defineRule('isEmail', email);
         schemator.defineRule('enum', enumRule);
     }
 };
