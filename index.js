@@ -55,7 +55,9 @@ var customRules = function(schemator, lodash){
             if(input){
                 if(!_.isString(input) || input !== input.toLowerCase()){
                     return {
-                        rule: 'lowercase'
+                        rule: 'lowercase',
+                        actual: input,
+                        expected: _.isString(input) ? input.toLowerCase() : 'lowercase string'
                     };
                 } else {
                     return null;
@@ -69,7 +71,7 @@ var customRules = function(schemator, lodash){
             if(input){
                 if(!_.isString(input) || !checkEmail(input)){
                     return {
-                        rule: 'email',
+                        rule: 'isEmail',
                         actual: input + ' (isString = ' + _.isString(input) + ', regex = ' + checkEmail(input) + ')',
                         expected: 'an email address'
                     };
