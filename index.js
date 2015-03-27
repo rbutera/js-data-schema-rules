@@ -51,6 +51,10 @@ var customRules = function(schemator, lodash){
             }
         };
 
+        var unwrappedAsync = function(input, value, cb){
+            return cb(unwrapped(input, value));
+        };
+
         var lowercase = function(input, value){
             if(input){
                 if(!_.isString(input) || input !== input.toLowerCase()){
@@ -67,6 +71,10 @@ var customRules = function(schemator, lodash){
             }
         };
 
+        var lowercaseAsync = function(input, value, cb){
+            return cb(lowercase(input, value));
+        };
+
         var email = function(input, value){
             if(input){
                 if(!_.isString(input) || !checkEmail(input)){
@@ -81,6 +89,10 @@ var customRules = function(schemator, lodash){
             } else {
                 return null;
             }
+        };
+
+        var emailAsync = function(input, value, cb){
+            return cb(email(input, value));
         };
 
 
@@ -104,10 +116,14 @@ var customRules = function(schemator, lodash){
             }
         };
 
-        schemator.defineRule('unwrapped', unwrapped);
-        schemator.defineRule('lowercase', lowercase);
-        schemator.defineRule('isEmail', email);
-        schemator.defineRule('enum', enumRule);
+        var enumRuleAsync = function (input, possible, cb){
+            return cb(enumRule(input, possible));
+        };
+
+        schemator.defineRule('unwrapped', unwrappedAsync, true);
+        schemator.defineRule('lowercase', lowercaseAsync, true);
+        schemator.defineRule('isEmail', emailAsync, true);
+        schemator.defineRule('enum', enumRuleAsync, true);
     }
 };
 
