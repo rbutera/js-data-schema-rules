@@ -123,7 +123,7 @@ var customRules = function(schemator, lodash){
         schemator.defineRule('unwrapped', unwrappedAsync, true);
         schemator.defineRule('lowercase', lowercaseAsync, true);
         schemator.defineRule('isEmail', emailAsync, true);
-        schemator.defineRule('enum', enumRuleAsync, true);
+        schemator.defineRule('isEnum', enumRuleAsync, true);
     }
 };
 
