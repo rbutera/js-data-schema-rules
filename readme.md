@@ -1,6 +1,10 @@
 # js-data-schema-rules 
 Custom Rules for [js-data-schema](http://github.com/js-data/js-data-schema)
 
+
+## NOTE 
+these docs are out of date. all rule functions are now async.
+
 ## Installation and Usage 
 `bower install js-data js-data-schema js-data-schema-rules`
 
