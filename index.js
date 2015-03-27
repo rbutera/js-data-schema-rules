@@ -13,7 +13,6 @@ var customRules = function(schemator, lodash){
     } else if (!_){
         throw new Error('js-data-rules missing lodash');
     } else {
-
         // from http://stackoverflow.com/questions/46155/validate-email-address-in-javascript
         var checkEmail = function (emailAddress) {
           var sQtext = '[^\\x0d\\x22\\x5c\\x80-\\xff]';
@@ -36,7 +35,7 @@ var customRules = function(schemator, lodash){
         };
 
         var unwrapped = function(input, value){
-            if(input && _.isString(input)){
+            if(input && _.isString(input) && value){
                 var firstChar = input.charAt(0);
                 var lastChar = input.charAt(input.length - 1);
                 if(firstChar === ' ' || lastChar === ' '){
@@ -56,7 +55,7 @@ var customRules = function(schemator, lodash){
         };
 
         var lowercase = function(input, value){
-            if(input){
+            if(input && value){
                 if(!_.isString(input) || input !== input.toLowerCase()){
                     return {
                         rule: 'lowercase',
@@ -76,11 +75,11 @@ var customRules = function(schemator, lodash){
         };
 
         var email = function(input, value){
-            if(input){
+            if(input && value){
                 if(!_.isString(input) || !checkEmail(input)){
                     return {
                         rule: 'isEmail',
-                        actual: input + ' (isString = ' + _.isString(input) + ', regex = ' + checkEmail(input) + ')',
+                        actual: (input ? input : "undefined") + ' (isString = ' + _.isString(input) + ', regex = ' + checkEmail(input) + ')',
                         expected: 'an email address'
                     };
                 } else {
