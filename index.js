@@ -102,7 +102,7 @@ var customRules = function(schemator, lodash){
                     return {
                         rule: 'asLowercaseIs',
                         actual: input,
-                        expected: 'a string that would equal ' + value + ' when lowercase';
+                        expected: 'a string that would equal ' + value + ' when lowercase'
                     }
                 } else {
                     return null;
