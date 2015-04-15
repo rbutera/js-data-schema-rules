@@ -74,6 +74,49 @@ var customRules = function(schemator, lodash){
             return cb(lowercase(input, value));
         };
 
+
+        var lowercaseEquivalentOf = function(input, value){
+            if (input && value) {
+                if(!_.isString(input) || !_.isString(value) || input !== value.toLowerCase()){
+                    return {
+                        rule: 'lowercaseEquivalentOf',
+                        actual: input,
+                        expected: (value ? value : 'a string') + ' as lowercase'
+                    }
+                } else {
+                    return null;
+                }
+            } else {
+                return null;
+            }
+        };
+
+
+        var lowercaseEquivalentOfAsync = function(input, value, cb){
+            return cb(lowercaseEquivalentOf(input, value));
+        };
+
+        var asLowercaseIs = function(input, value){
+            if (input && value) {
+                if(!_.isString(input) || !_.isString(value) || input.toLowerCase() !== value){
+                    return {
+                        rule: 'asLowercaseIs',
+                        actual: input,
+                        expected: 'a string that would equal ' + value + ' when lowercase';
+                    }
+                } else {
+                    return null;
+                }
+            } else {
+                return null;
+            }
+        };
+
+        var asLowercaseIsAsync = function(input, value, cb){
+            return cb(asLowercaseIs(input, value));
+        };
+
+
         var email = function(input, value){
             if(input && value){
                 if(!_.isString(input) || !checkEmail(input)){
@@ -123,6 +166,8 @@ var customRules = function(schemator, lodash){
         schemator.defineRule('lowercase', lowercaseAsync, true);
         schemator.defineRule('isEmail', emailAsync, true);
         schemator.defineRule('isEnum', enumRuleAsync, true);
+        schemator.defineRule('lowercaseEquivalentOf', lowercaseEquivalentOfAsync, true);
+        schemator.defineRule('asLowercaseIs', asLowercaseIsAsync, true);
     }
 };
 
